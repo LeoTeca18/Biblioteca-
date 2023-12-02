@@ -29,10 +29,10 @@ class UsuarioDAO extends Database
         $stm->execute();
 
         if ($admin == 1) {
-            header('Location: /biblioteca/dashboard');
+            header('Location: dashboard');
           
         } else {
-            header('Location: /biblioteca/home');
+            header('Location: home');
         }
     }
 
