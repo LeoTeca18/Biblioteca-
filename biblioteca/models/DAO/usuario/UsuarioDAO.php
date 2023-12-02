@@ -69,14 +69,14 @@ class UsuarioDAO extends Database
     public function logout()
     {
         session_destroy();
-        header("Location: /biblioteca");
+        header("Location: biblioteca");
     }
 
     public function delete($id)
     {
         $stm = $this->pdo->prepare('DELETE FROM usuario WHERE id = ?');
         $stm->execute([$id]);
-        header('Location: /biblioteca');
+        header('Location: biblioteca');
     }
 
     public function logins($email, $senha)
@@ -99,7 +99,7 @@ class UsuarioDAO extends Database
             // Inicia a sessão e redireciona para a página de dashboard
             session_start();
             $_SESSION['usuario_id'] = $usuario['id'];
-            header('Location: /biblioteca/dashboard');
+            header('Location: dashboard');
             exit();
         } else {
             // Se as credenciais não correspondem, exibe uma mensagem de erro
