@@ -51,6 +51,8 @@ class UsuarioController extends RenderViews
 
     public function login()
     {
+        if(!isset($_POST['email']) && !isset($_POST['password']))
+            return;
         $email = $_POST['email'];
         $password = $_POST['password'];
 
