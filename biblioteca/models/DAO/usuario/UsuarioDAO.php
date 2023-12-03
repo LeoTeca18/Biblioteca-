@@ -11,6 +11,11 @@ class UsuarioDAO extends Database
 
     public function fetch()
     {
+        if($this->pdo == null){
+            echo "Error fectching, pdo is null";
+            return;
+        }
+
         $stm = $this->pdo->query("SELECT * FROM usuario");
         if ($stm->rowCount() > 0) {
             return $stm->fetchAll(PDO::FETCH_ASSOC);
