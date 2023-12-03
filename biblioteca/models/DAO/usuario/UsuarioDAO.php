@@ -26,6 +26,10 @@ class UsuarioDAO extends Database
 
     public function cadastrar($nome, $email, $senha, $admin)
     {
+        if($this->pdo == null){
+            echo "Impossível cadastrar, verifique a comexao com o banco de dados";
+            return;
+        }
         $stm = $this->pdo->prepare("INSERT INTO usuario(id,nome, email, senha, admin) VALUES (uuid(), :nome, :email, :senha, :admin)");
         $stm->bindParam(':nome', $nome);
         $stm->bindParam(':email', $email);
