@@ -96,6 +96,9 @@ class UsuarioDAO extends Database
             return;
         }
 
+        $this->pdo = Database::getConnection();
+        if($this->pdo != null) echo "not null"; else echo "null";
+
         // Verificar as credenciais do usuário no banco de dados
         $stm = $this->pdo->prepare("SELECT * FROM usuario WHERE email = :email");
         $stm->bindParam(':email', $email);

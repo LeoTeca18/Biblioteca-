@@ -60,7 +60,7 @@
             <input type="email" id="email" name="email" placeholder="email">
             <br><br>
             <label for="senha"></label>
-            <input type="senha" id="senha" name="senha" placeholder="Senha">
+            <input type="password" id="senha" name="senha" placeholder="Senha">
             <br>
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                 <a class="text-blue-600 decoration-2 font-medium" href="cadastro">
@@ -68,10 +68,8 @@
                 </a>
             </p>
             <br><br>
-            <button type="submit" href=" dashboard">Login</button>
-
-
-
+            <button type="submit" href="dashboard">Login</button>
+        </form>
     </div>
 </body>
 

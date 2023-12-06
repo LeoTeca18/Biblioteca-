@@ -51,12 +51,12 @@ class UsuarioController extends RenderViews
 
     public function login()
     {
-        if(isset($_POST['email']) && isset($_POST['password']))
+        if(isset($_POST['email']) && isset($_POST['senha']))
         {
             $email = $_POST['email'];
-            $password = $_POST['password'];
+            $senha = $_POST['senha'];
 
-            $this->usuario->logins($email, $password);
+            $this->usuario->logins($email, $senha);
         }
         else
         {
