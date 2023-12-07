@@ -25,6 +25,9 @@
     <link href="views\support\css\styleTable.css" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="views\support\css\style.css" rel="stylesheet">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="views/support/assets/font-awesome/css/font-awesome.min.css" />
 </head>
 
 <body>
@@ -114,7 +117,7 @@
                     <th scope="col">Quantidade</th>
                     <th scope="col">Categoria</th>
                     <th scope="col">Descricao</th>
-                    <th scope="col">Accao</th>
+                    <th scope="col">Acção</th>
                 </tr>
             </thead>
             <tbody>
@@ -128,6 +131,11 @@
                     <td><?php echo $livro['quantidade']; ?></td>
                     <td><?php echo $livro['categoria']; ?></td>
                     <td><?php echo $livro['descricao']; ?></td>
+                    <td>
+                        <?php $id = $livro['id']?>
+                        <a href=<?="listaLivro/$id"?>><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        <a href=<?="listaLivro/$id"?>><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </td>
                 </tr>
                 <?php endforeach ?>
             </tbody>
