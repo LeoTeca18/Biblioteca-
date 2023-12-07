@@ -55,6 +55,7 @@
 <body>
     <div>
         <h1>Login</h1>
+        <!--<p style="color: red"><?php /*=$error_message*/?></p><br>-->
         <form action="login" method="post">
             <label for="email"></label>
             <input type="email" id="email" name="email" placeholder="email">

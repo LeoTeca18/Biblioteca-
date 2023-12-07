@@ -30,7 +30,7 @@ class UsuarioDAO extends Database
             echo "Impossível cadastrar, verifique a comexao com o banco de dados";
             return;
         }
-        $stm = $this->pdo->prepare("INSERT INTO usuario(id,nome, email, senha, admin) VALUES (uuid(), :nome, :email, :senha, :admin)");
+        $stm = $this->pdo->prepare("INSERT INTO usuario(id,nome, email, senha, admin) VALUES (default, :nome, :email, :senha, :admin)");
         $stm->bindParam(':nome', $nome);
         $stm->bindParam(':email', $email);
         $stm->bindParam(':senha', $senha);
@@ -97,7 +97,6 @@ class UsuarioDAO extends Database
         }
 
         $this->pdo = Database::getConnection();
-        if($this->pdo != null) echo "not null"; else echo "null";
 
         // Verificar as credenciais do usuário no banco de dados
         $stm = $this->pdo->prepare("SELECT * FROM usuario WHERE email = :email");
@@ -107,12 +106,14 @@ class UsuarioDAO extends Database
         $usuario = $stm->fetch(PDO::FETCH_ASSOC);
 
         // Verifica se o usuário existe e a senha está correta
-        if ($usuario && password_verify($senha, $usuario['senha'])) {
+        if ($usuario && $senha == $usuario['senha']) {
             // Inicia a sessão e redireciona para a página de dashboard
-            session_start();
+            if(session_status() !== PHP_SESSION_ACTIVE)
+                session_start();
             $_SESSION['usuario_id'] = $usuario['id'];
-            header('Location: dashboard');
-            exit();
+            
+            $usuario['admin'] > 0 ? header('Location: dashboard') : header('Location: home');;
+            //exit();
         } else {
             // Se as credenciais não correspondem, exibe uma mensagem de erro
             echo "Erro ao fazer login: Credenciais inválidas.";
