@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(session_status() !== PHP_SESSION_ACTIVE)session_start();
 
 class LivroDAO extends Database
 {
@@ -89,5 +89,10 @@ class LivroDAO extends Database
         $stm->execute();
 
         return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function getCount(){
+        $table = 'livro';
+        return Database::count($table);
     }
 }

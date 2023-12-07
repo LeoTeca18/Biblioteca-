@@ -132,7 +132,7 @@
                                             <i class="bi bi-book"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>145</h6>
+                                            <h6><?= LivroDAO::getCount() ?></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +189,7 @@
                                             <i class="bi bi-people"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6></h6>
+                                            <h6><?= UsuarioDAO::getCount()?></h6>
                                         </div>
                                     </div>
                                 </div>

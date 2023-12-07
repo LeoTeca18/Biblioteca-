@@ -135,5 +135,10 @@ class UsuarioDAO extends Database
         $stm->execute();
 
         return $stm->fetch(PDO::FETCH_ASSOC);
-        }
     }
+
+    public static function getCount(){
+        $table = 'usuario';
+        return Database::count($table);
+    }
+}
