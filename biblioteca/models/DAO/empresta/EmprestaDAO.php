@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 
 class EmprestaDAO extends Database
 {
@@ -49,8 +47,14 @@ class EmprestaDAO extends Database
 
     public function delete($id)
     {
-        $stm = $this->pdo->prepare('DELETE FROM emprestimo WHERE id = ?');
+        $stm = $this->pdo->prepare('DELETE FROM empresta WHERE id = ?');
         $stm->execute([$id]);
-        header('Location: /biblioteca/listaLivro');
+        header('Location: listaLivro');
+    }
+
+    public static function getCount()
+    {
+        $table = 'empresta';
+        return Database::count($table);
     }
 }

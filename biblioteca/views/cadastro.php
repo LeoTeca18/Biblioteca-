@@ -66,7 +66,6 @@
             <br><br>
             <input type="text" placeholder="Senha" id="senha" name="senha" required>
             <br><br>
-            <input type="textbox" id="admin" name="admin" value="1" required>
             <br><br>
             <button type="submit">Cadastrar</button>
         </form>

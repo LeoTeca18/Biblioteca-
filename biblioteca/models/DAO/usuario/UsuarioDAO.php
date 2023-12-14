@@ -24,25 +24,26 @@ class UsuarioDAO extends Database
         }
     }
 
-    public function cadastrar($nome, $email, $senha, $admin)
+    public function cadastrar($nome, $email, $senha)
     {
         if($this->pdo == null){
             echo "Impossível cadastrar, verifique a comexao com o banco de dados";
             return;
         }
-        $stm = $this->pdo->prepare("INSERT INTO usuario(id,nome, email, senha, admin) VALUES (default, :nome, :email, :senha, :admin)");
+        $stm = $this->pdo->prepare("INSERT INTO usuario(nome, email, senha) VALUES (:nome, :email, :senha)");
         $stm->bindParam(':nome', $nome);
         $stm->bindParam(':email', $email);
         $stm->bindParam(':senha', $senha);
-        $stm->bindParam(':admin', $admin);
         $stm->execute();
 
-        if ($admin == 1) {
+        header('Location: cliente');
+
+        /*if ($adm == 1) {
             header('Location: dashboard');
           
         } else {
-            header('Location: home');
-        }
+            header('Location: cliente');
+        }*/
     }
 
 
@@ -78,7 +79,7 @@ class UsuarioDAO extends Database
     public function logout()
     {
         session_destroy();
-        header("Location: biblioteca");
+        header("Location: home");
     }
 
     public function delete($id)
@@ -112,7 +113,7 @@ class UsuarioDAO extends Database
                 session_start();
             $_SESSION['usuario_id'] = $usuario['id'];
             
-            $usuario['admin'] > 0 ? header('Location: dashboard') : header('Location: home');;
+            $usuario['adm'] > 0 ? header('Location: dashboard') : header('Location: cliente');;
             //exit();
         } else {
             // Se as credenciais não correspondem, exibe uma mensagem de erro

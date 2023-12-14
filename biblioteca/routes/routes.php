@@ -16,8 +16,9 @@ $routes = [
     //'/cadastrar' => 'UsuarioController@cadastro',
     //'/cadastro' => 'UsuarioController@userForm',
     '/usuario/{id}' => 'UsuarioController@show',
-  
+    '/cliente' => 'LivroController@cliente',
     '/dashboard' => 'UsuarioController@dashboard',
     '/usuario' => 'UsuarioController@show',
+    '/emprestimo' => 'EmprestaController@emprestimo',
    
 ];

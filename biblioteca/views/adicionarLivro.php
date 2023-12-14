@@ -4,7 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicione um Livro</title>
+    <title>Adicionar um Livro</title>
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="views\support\css\bootstrap-icons.css" rel="stylesheet">
+    <link href="views\support\css\bootstrap.min.css" rel="stylesheet">
+    <link href="views\support\css\styleTable.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="views\support\css\style.css" rel="stylesheet">
     <style>
     body {
         font-family: Arial, sans-serif;
@@ -58,6 +74,67 @@
 </head>
 
 <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+                <img src="assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block">LivraTec</span>
+            </a>
+            <a class="nav-link collapsed" href="logout">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Logout</span>
+            </a>
+
+    </header><!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="
+                    dashboard">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link" href=" adicionarLivro">
+                    <i class="bi bi-plus"></i><span>Adicionar Livro</span></i>
+                </a>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href=" listaLivro">
+                    <i class="bi bi-list"></i><span>Listar Livros</span></i>
+                </a>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="listaUsuario">
+                    <i class="bi bi-list"></i><span>Listar Usuarios</span>
+                </a>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-pen"></i><span>Ativar Usuarios</span>
+                </a>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-pen"></i><span>Desativar Usuarios</span>
+                </a>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="login">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Login</span>
+                </a>
+            </li><!-- End Login Page Nav -->
+
+    </aside><!-- End Sidebar-->
     <div class="container">
         <h1>Adicione um Livro</h1>
         <form method="post" action="adicionar">
@@ -70,12 +147,12 @@
                 <input type="text" id="editora" name="editora" required>
             </div>
             <div class="form-group">
-                <label for="editora">Autor</label>
-                <input type="text" id="editora" name="autor" required>
+                <label for="autor">Autor</label>
+                <input type="text" id="autor" name="autor" required>
             </div>
             <div class="form-group">
                 <label for="editora">Quantidade</label>
-                <input type="number" id="editora" name="quantidade" required>
+                <input type="number" id="quantidade" name="quantidade" required>
             </div>
             <div class="form-group">
                 <label for="editora">Categoria</label>

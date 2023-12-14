@@ -25,6 +25,9 @@
 
     <!-- Template Main CSS File -->
     <link href="views\support\css\style.css" rel="stylesheet">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="views/support/assets/font-awesome/css/font-awesome.min.css" />
 </head>
 
 <body>
@@ -49,7 +52,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="dashboard">
+                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href=" dashboard">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -68,18 +71,18 @@
                 </a>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="listaUsuario">
-                    <i class="bi bi-list"></i><span>Listar Usuarios</span>
+                <a class="nav-link" href=" listaUsuario">
+                    <i class="bi bi-list"></i><span>Listar Usuários</span>
                 </a>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-pen"></i><span>Ativar Usuarios</span>
+                    <i class="bi bi-pen"></i><span>Ativar Usuários</span>
                 </a>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-pen"></i><span>Desativar Usuarios</span>
+                    <i class="bi bi-pen"></i><span>Desativar Usuários</span>
                 </a>
 
             <li class="nav-item">
@@ -118,7 +121,8 @@
                                     <th scope="col">Nome</th>
                                     <th scope="col">Senha</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Admin</th>
+                                    <th scope="col">Adm</th>
+                                    <th scope="col">Acção</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -129,7 +133,13 @@
                                     <td><?php echo $usuario['nome']; ?></td>
                                     <td><?php echo $usuario['senha']; ?></td>
                                     <td><?php echo $usuario['email']; ?></td>
-                                    <td><?php echo $usuario['admin']; ?></td>
+                                    <td><?php echo $usuario['adm']; ?></td>
+                                    <td>
+                                        <?php $id = $usuario['id'] ?>
+                                        <a href=<?= "apagar/$id" ?>><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a href=<?= "listaUsuario/$id" ?>><i class="fa fa-pencil"
+                                                aria-hidden="true"></i></a>
+                                    </td>
                                 </tr>
                                 <?php endforeach ?>
                             </tbody>

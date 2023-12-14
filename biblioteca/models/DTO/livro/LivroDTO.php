@@ -9,9 +9,8 @@ class LivroDTO
     public $categoria;
     public $descricao;
 
-    public function __construct($id, $titulo, $editora, $autor, $quantidade, $categoria, $descricao)
+    public function __construct($titulo, $editora, $autor, $quantidade, $categoria, $descricao)
     {
-        $this->id = $id;
         $this->titulo = $titulo;
         $this->editora = $editora;
         $this->autor = $autor;

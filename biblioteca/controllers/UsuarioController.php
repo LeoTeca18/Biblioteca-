@@ -23,9 +23,8 @@ class UsuarioController extends RenderViews
         $nome = $_POST['nome'];
         $email = $_POST['email'];
         $senha = $_POST['senha'];
-        $admin = $_POST['admin'];
         
-        $this->usuario->cadastrar($nome, $email, $senha, $admin);
+        $this->usuario->cadastrar($nome, $email, $senha);
     }
 
     public function UserForm()

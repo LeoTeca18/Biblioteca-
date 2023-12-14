@@ -11,7 +11,7 @@ class LivroDAO extends Database
     }
     public function create($titulo, $autor, $categoria, $descricao, $quantidade, $editora)
     {
-        $stm = $this->pdo->prepare("INSERT INTO livro (id,titulo,editora,autor,quantidade,categoria,descricao) VALUES (uuid(),:titulo, :editora, :autor, :quantidade, :categoria, :descricao)");
+        $stm = $this->pdo->prepare("INSERT INTO livro (titulo,editora,autor,quantidade,categoria,descricao) VALUES (:titulo, :editora, :autor, :quantidade, :categoria, :descricao)");
         $stm->bindParam(':autor', $autor);
         $stm->bindParam(':editora', $editora);
         $stm->bindParam(':titulo', $titulo);
@@ -20,7 +20,7 @@ class LivroDAO extends Database
         $stm->bindParam(':descricao', $descricao);
         $stm->execute();
 
-        header('Location: /biblioteca/adicionarLivro');
+        header('Location: adicionarLivro');
         echo json_encode(["msg" => "Created"]);
     }
 

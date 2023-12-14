@@ -6,7 +6,9 @@ class EmprestaController extends RenderViews {
     echo "hhhhh";
 }
 
+    public function emprestimo()
+    {
+        $this->loadView('emprestimo', []);
+    }
+
 } 
-
-
-

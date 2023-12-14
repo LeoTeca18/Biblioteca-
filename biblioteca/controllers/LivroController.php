@@ -82,4 +82,9 @@ class LivroController extends RenderViews
         $idUser = $id[0];
         $this->livro->delete($idUser);
     }
+
+    public function cliente()
+    {
+        $this->loadView('cliente', ['livros' => $this->livro->buscar()]);
+    }
 }

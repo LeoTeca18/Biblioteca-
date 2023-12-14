@@ -71,17 +71,17 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="listaUsuario">
-                    <i class="bi bi-list"></i><span>Listar Usuarios</span>
+                    <i class="bi bi-list"></i><span>Listar Usuários</span>
                 </a>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-pen"></i><span>Ativar Usuarios</span>
+                    <i class="bi bi-pen"></i><span>Ativar Usuários</span>
                 </a>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-pen"></i><span>Desativar Usuarios</span>
+                    <i class="bi bi-pen"></i><span>Desativar Usuários</span>
                 </a>
 
             <li class="nav-item">
@@ -119,7 +119,10 @@
                                 <div class="filter">
 
                                     <li class="dropdown-header text-start">
-                                        <h6>Ver</h6>
+                                        <a href="listaLivro">
+                                            <h6>Ver</h6>
+                                        </a>
+
                                     </li>
 
                                 </div>
@@ -151,7 +154,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Emprestimos</h5>
+                                    <h5 class="card-title">Empréstimos</h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -159,7 +162,7 @@
                                             <i class="bi bi-database"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>264</h6>
+                                            <h6><?= EmprestaDAO::getCount() ?></h6>
 
 
                                         </div>
@@ -176,12 +179,14 @@
 
                                 <div class="filter">
                                     <li class="dropdown-header text-start">
-                                        <h6>Ver</h6>
+                                        <a href="listaUsuario">
+                                            <h6>Ver</h6>
+                                        </a>
                                     </li>
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Usuarios</h5>
+                                    <h5 class="card-title">Usuários</h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -189,7 +194,7 @@
                                             <i class="bi bi-people"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6><?= UsuarioDAO::getCount()?></h6>
+                                            <h6><?= UsuarioDAO::getCount() ?></h6>
                                         </div>
                                     </div>
                                 </div>
