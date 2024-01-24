@@ -20,5 +20,6 @@ $routes = [
     '/dashboard' => 'UsuarioController@dashboard',
     '/usuario' => 'UsuarioController@show',
     '/emprestimo' => 'EmprestaController@emprestimo',
-   
+    '/emprestar' => 'EmprestaController@emprestar',
+
 ];

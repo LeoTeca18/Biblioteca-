@@ -19,7 +19,8 @@ class Database
         }
     }
 
-    protected static function count($table){
+    protected static function count($table)
+    {
         $stm = Database::getConnection()->query("SELECT COUNT(*) FROM $table");
         $stm->execute();
         return $stm->fetchColumn();

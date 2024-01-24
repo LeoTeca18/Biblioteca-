@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 class EmprestaDAO extends Database
 {
@@ -8,10 +9,13 @@ class EmprestaDAO extends Database
     {
         $this->pdo = Database::getConnection();
     }
-    public function create($data_emprestimo)
+    public function create($id_livro)
     {
-        $stm = $this->pdo->prepare("INSERT INTO empresta (id_empresta, data_emprestimo, data_devolucao) VALUES (uuid(),?,NULL)");
-        $stm->execute([$data_emprestimo]);
+        $id_usuario = $_SESSION['usuario_id'];
+        $stm = $this->pdo->prepare("INSERT INTO empresta(data_emprestimo, id_livro, id_usuario) VALUES (NOW(), :id_livro, :id_usuario)");
+        $stm->bindParam(':id_livro', $id_livro);
+        $stm->bindParam(':id_usuario', $id_usuario);
+        $stm->execute();
 
         header('Location: /biblioteca/listaLivro');
         echo json_encode(["msg" => "Created"]);
@@ -19,7 +23,8 @@ class EmprestaDAO extends Database
 
     public function fetchAll()
     {
-        $stm = $this->pdo->query("SELECT * FROM emprestimo");
+        $id_usuario = $_SESSION['usuario_id'];
+        $stm = $this->pdo->query("SELECT * FROM `livro` INNER JOIN empresta WHERE empresta.id_usuario = $id_usuario");
         if ($stm->rowCount() > 0) {
             return $stm->fetchAll(PDO::FETCH_ASSOC);
         } else {
@@ -57,4 +62,6 @@ class EmprestaDAO extends Database
         $table = 'empresta';
         return Database::count($table);
     }
+
+
 }

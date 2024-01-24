@@ -13,7 +13,7 @@ class LivroController extends RenderViews
     {
     }
 
-      public function buscar()
+    public function buscar()
     {
         $this->loadView("listaLivro", ['livros' => $this->livro->buscar()]);
     }
