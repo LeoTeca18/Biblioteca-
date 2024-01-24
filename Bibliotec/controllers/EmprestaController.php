@@ -17,7 +17,8 @@ class EmprestaController extends RenderViews
 
     public function emprestar()
     {
-        $this->emprestaDAO->create(6);
+        $id_livro = $_GET['id'];
+        $this->emprestaDAO->create($id_livro);
     }
 
 }

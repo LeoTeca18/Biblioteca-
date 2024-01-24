@@ -92,25 +92,18 @@
                     <th scope="col">Título</th>
                     <th scope="col">Autor</th>
                     <th scope="col">Editora</th>
-                    <th scope="col">Quantidade</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Acção</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                foreach ($livros as $livro) :
+                foreach ($emprestimos as $emprestimo) :
                 ?>
                 <tr>
-                    <th scope="row"><?php echo $livro['titulo']; ?></th>
-                    <td><?php echo $livro['autor']; ?></td>
-                    <td><?php echo $livro['editora']; ?></td>
-                    <td><?php echo $livro['quantidade']; ?></td>
-                    <td><?php echo $livro['categoria']; ?></td>
-                    <td><?php echo $livro['descricao']; ?></td>
+                    <th scope="row"><?php echo $emprestimo['titulo']; ?></th>
+                    <td><?php echo $emprestimo['autor']; ?></td>
+                    <td><?php echo $emprestimo['editora']; ?></td>
                     <td>
-                        <?php $id = $livro['id'] ?>
+                        <?php $id = $emprestimo['id'] ?>
                         <a href=<?= "listaLivro/$id" ?>><i class="fa fa-trash" aria-hidden="true"></i></a>
                         <a href=<?= "listaLivro/$id" ?>><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </td>

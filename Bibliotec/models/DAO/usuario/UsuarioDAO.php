@@ -38,12 +38,6 @@ class UsuarioDAO extends Database
 
         header('Location: cliente');
 
-        /*if ($adm == 1) {
-            header('Location: dashboard');
-          
-        } else {
-            header('Location: cliente');
-        }*/
     }
 
 
@@ -86,7 +80,7 @@ class UsuarioDAO extends Database
     {
         $stm = $this->pdo->prepare('DELETE FROM usuario WHERE id = ?');
         $stm->execute([$id]);
-        header('Location: biblioteca');
+        header('Location: /bibliotec/biblioteca/dashboard');
     }
 
     public function logins($email, $senha)
