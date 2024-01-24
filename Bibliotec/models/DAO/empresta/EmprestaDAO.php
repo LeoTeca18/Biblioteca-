@@ -62,6 +62,4 @@ class EmprestaDAO extends Database
         $table = 'empresta';
         return Database::count($table);
     }
-
-
-}
+}    

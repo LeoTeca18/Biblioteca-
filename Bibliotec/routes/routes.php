@@ -12,14 +12,14 @@ $routes = [
     '/listaUsuario' => 'UsuarioController@buscar',
     '/dashboard' => 'UsuarioController@dashboard',
     '/usuario' => 'UsuarioController@show',
-    
+
     '/adicionar' => 'LivroController@create',
     '/adicionarLivro' => 'LivroController@bookForm',
     '/listaLivro' => 'LivroController@buscar',
     '/apagarLivro/{id}' => 'LivroController@delete',
     '/editarLivro/{id}' => 'LivroController@update',
     '/cliente' => 'LivroController@cliente',
-    
+
     '/emprestimo' => 'EmprestaController@emprestimo',
     '/emprestar' => 'EmprestaController@emprestar',
 

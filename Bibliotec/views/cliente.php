@@ -86,27 +86,25 @@
             </nav>
         </div><!-- End Page Title -->
 
-<<<<<<< HEAD:biblioteca/views/cliente.php
-        <h1 class="m-4">Secção de Empréstimos</h1>
         <?php
-        foreach ($livros as $livro):
+            foreach ($livros as $livro) :
             ?>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <?php echo $livro['titulo'] ?>
-                    </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        <?php echo $livro['editora'] ?>
-                    </h6>
-                    <p class="card-text">
-                        <?php echo $livro['descricao'] ?>
-                    </p>
-                    <a href="./emprestar?id=<?php echo $livro['id']; ?>" class="card-link">Emprestar</a>
-                </div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <?php echo $livro['titulo'] ?>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <?php echo $livro['editora'] ?>
+                </h6>
+                <p class="card-text">
+                    <?php echo $livro['descricao'] ?>
+                </p>
+                <a href="./emprestar?id=<?php echo $livro['id']; ?>" class="card-link">Emprestar</a>
             </div>
+        </div>
         <?php endforeach ?>
-=======
+        =======
         <h1>Secção de Empréstimos</h1>
         <table class="table datatable">
             <thead>
@@ -119,8 +117,8 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($livros as $livro) :
-                ?>
+                    foreach ($livros as $livro) :
+                    ?>
                 <tr>
                     <th scope="row"><?php echo $livro['titulo']; ?></th>
                     <td><?php echo $livro['autor']; ?></td>
@@ -134,7 +132,7 @@
                 <?php endforeach ?>
             </tbody>
         </table>
->>>>>>> 4b46ed90567118c1091c894fbc35b7508ca4ada1:Bibliotec/views/cliente.php
+
 </body>
 
 </html>
