@@ -96,18 +96,24 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($emprestimos as $emprestimo) :
-                ?>
-                <tr>
-                    <th scope="row"><?php echo $emprestimo['titulo']; ?></th>
-                    <td><?php echo $emprestimo['autor']; ?></td>
-                    <td><?php echo $emprestimo['editora']; ?></td>
-                    <td>
-                        <?php $id = $emprestimo['id'] ?>
-                        <a href=<?= "listaLivro/$id" ?>><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        <a href=<?= "listaLivro/$id" ?>><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    </td>
-                </tr>
+                foreach ($livros as $emprestimo):
+                    ?>
+                    <tr>
+                        <th scope="row">
+                            <?php echo $emprestimo['titulo']; ?>
+                        </th>
+                        <td>
+                            <?php echo $emprestimo['autor']; ?>
+                        </td>
+                        <td>
+                            <?php echo $emprestimo['editora']; ?>
+                        </td>
+                        <td>
+                            <?php $id = $emprestimo['id'] ?>
+                            <a href=<?= "listaLivro/$id" ?>><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href=<?= "listaLivro/$id" ?>><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
