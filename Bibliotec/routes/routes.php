@@ -10,6 +10,11 @@ $routes = [
     '/apagar/{id}' => 'UsuarioController@delete',
     '/usuario/{id}' => 'UsuarioController@show',
     '/listaUsuario' => 'UsuarioController@buscar',
+    '/ativarUsuario' => 'UsuarioController@buscarA',
+    '/desativarUsuario' => 'UsuarioController@buscarD',
+    '/listaUsuario' => 'UsuarioController@buscar',
+    '/ativar/{id}' => 'UsuarioController@ativarUsuario',
+    '/desativar/{id}' => 'UsuarioController@desativarUsuario',
     '/dashboard' => 'UsuarioController@dashboard',
     '/usuario' => 'UsuarioController@show',
 
@@ -21,6 +26,7 @@ $routes = [
     '/cliente' => 'LivroController@cliente',
 
     '/emprestimo' => 'EmprestaController@emprestimo',
+    '/emprestimoA' => 'EmprestaController@emprestimoA',
     '/emprestar' => 'EmprestaController@emprestar',
 
 ];

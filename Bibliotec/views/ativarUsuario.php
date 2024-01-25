@@ -76,13 +76,13 @@
                 </a>
 
             <li class="nav-item">
-                <a class="nav-link" href=" listaUsuario">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="
+                    listaUsuario">
                     <i class="bi bi-list"></i><span>Listar Usuários</span>
                 </a>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse"
-                    href="ativarUsuario">
+                <a class="nav-link" href=" ativarUsuario">
                     <i class="bi bi-pen"></i><span>Ativar Usuários</span>
                 </a>
 
@@ -126,25 +126,20 @@
                                 <tr>
 
                                     <th scope="col">Nome</th>
-                                    <th scope="col">Senha</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Adm</th>
-                                    <th scope="col">Acção</th>
+                                    <th scope="col">Desativar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($usuarios as $usuario) :
-                                ?>
+                foreach ($usuarios as $usuario) :
+                ?>
                                 <tr>
                                     <td><?php echo $usuario['nome']; ?></td>
-                                    <td><?php echo $usuario['senha']; ?></td>
                                     <td><?php echo $usuario['email']; ?></td>
-                                    <td><?php echo $usuario['adm']; ?></td>
                                     <td>
                                         <?php $id = $usuario['id'] ?>
-                                        <a href=<?= "apagar/$id" ?>><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                        <a href=<?= "listaUsuario/$id" ?>><i class="fa fa-pencil"
+                                        <a href=<?= "desativar/$id" ?>><i class="fa fa-pencil"
                                                 aria-hidden="true"></i></a>
                                     </td>
                                 </tr>

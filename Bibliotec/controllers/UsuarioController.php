@@ -38,8 +38,30 @@ class UsuarioController extends RenderViews
         $this->usuario->delete($idUser);
     }
 
+    public function ativarUsuario($id)
+    {
+        $idUser = $id[0];
+        $this->usuario->ativarUsuario($idUser);
+    }
+
+    public function desativarUsuario($id)
+    {
+        $idUser = $id[0];
+        $this->usuario->desativarUsuario($idUser);
+    }
+
     public function apagado(){
         $this->loadView('listaUsuario', []);
+    }
+
+    public function ativado()
+    {
+        $this->loadView('desativarUsuario', []);
+    }
+
+    public function desativado()
+    {
+        $this->loadView('ativarUsuario', []);
     }
 
     public function logout()
@@ -63,7 +85,6 @@ class UsuarioController extends RenderViews
         } 
     }
 
-
     public function dashboard()
     {   
         $this->loadView('dashboard', []);
@@ -72,5 +93,15 @@ class UsuarioController extends RenderViews
     public function buscar()
     {
         $this->loadView("listaUsuario", ['usuarios' => $this->usuario->buscar()]);
+    }
+
+    public function buscarA()
+    {
+        $this->loadView("ativarUsuario", ['usuarios' => $this->usuario->buscarA()]);
+    }
+
+    public function buscarD()
+    {
+        $this->loadView("desativarUsuario", ['usuarios' => $this->usuario->buscarD()]);
     }
 }

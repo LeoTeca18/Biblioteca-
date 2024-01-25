@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 class EmprestaDAO extends Database
 {
@@ -30,6 +29,13 @@ class EmprestaDAO extends Database
         } else {
             return [];
         }
+    }
+
+    public function fetchAll2()
+    {
+        $sql = $this->pdo->query("SELECT * FROM empresta");
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function fetchById($id)

@@ -26,20 +26,48 @@ class UsuarioDAO extends Database
 
     public function cadastrar($nome, $email, $senha)
     {
-        if($this->pdo == null){
-            echo "Impossível cadastrar, verifique a comexao com o banco de dados";
+        if ($this->pdo == null) {
+            echo "Impossível cadastrar, verifique a conexão com o banco de dados";
             return;
         }
-        $stm = $this->pdo->prepare("INSERT INTO usuario(nome, email, senha) VALUES (:nome, :email, :senha)");
+
+        // Supondo que você tenha um campo 'estado' na tabela de usuários
+        $estado = 1; // Pode ser 0 (desativado) ou 1 (ativo)
+
+        $stm = $this->pdo->prepare("INSERT INTO usuario(nome, email, senha, estado) VALUES (:nome, :email, :senha, :estado)");
         $stm->bindParam(':nome', $nome);
         $stm->bindParam(':email', $email);
         $stm->bindParam(':senha', $senha);
+        $stm->bindParam(':estado', $estado);
         $stm->execute();
-
-        header('Location: cliente');
-
     }
 
+    public function alterarEstadoUsuario($id, $estado)
+    {
+        // Atualiza o estado do usuário no banco de dados
+        $stm = $this->pdo->prepare("UPDATE usuario SET estado = :estado WHERE id = :id");
+        $stm->bindParam(':id', $id, PDO::PARAM_INT);
+        $stm->bindParam(':estado', $estado, PDO::PARAM_INT);
+
+        if ($stm->execute()) {
+            echo "Usuário " . ($estado == 1 ? 'ativado' : 'desativado') . " com sucesso.";
+        } else {
+            echo "Erro ao alterar o estado do usuário.";
+        }
+    }
+
+
+    public function ativarUsuario($id)
+    {
+        $this->alterarEstadoUsuario($id, 1); // 1 representa o estado ativo
+        header('Location: /bibliotec/dashboard');
+    }
+
+    public function desativarUsuario($id)
+    {
+        $this->alterarEstadoUsuario($id, 0); // 0 representa o estado desativado
+        header('Location: /bibliotec/dashboard');
+    }
 
     public function getUsuario()
     {
@@ -80,7 +108,7 @@ class UsuarioDAO extends Database
     {
         $stm = $this->pdo->prepare('DELETE FROM usuario WHERE id = ?');
         $stm->execute([$id]);
-        header('Location: /bibliotec/biblioteca/dashboard');
+        header('Location: /bibliotec/dashboard');
     }
 
     public function logins($email, $senha)
@@ -102,13 +130,20 @@ class UsuarioDAO extends Database
 
         // Verifica se o usuário existe e a senha está correta
         if ($usuario && $senha == $usuario['senha']) {
-            // Inicia a sessão e redireciona para a página de dashboard
-            if(session_status() !== PHP_SESSION_ACTIVE)
-                session_start();
-            $_SESSION['usuario_id'] = $usuario['id'];
-            
-            $usuario['adm'] > 0 ? header('Location: dashboard') : header('Location: cliente');;
-            //exit();
+            // Verifica o estado do usuário
+            if ($usuario['estado'] == 0) {
+                // Se o usuário estiver desativado, exibe uma mensagem
+                echo "Erro ao fazer login: Usuário desativado. Entre em contato com o suporte.";
+            } else {
+                // Inicia a sessão e redireciona para a página de dashboard
+                if (session_status() !== PHP_SESSION_ACTIVE) {
+                    session_start();
+                }
+                $_SESSION['usuario_id'] = $usuario['id'];
+
+                $usuario['adm'] > 0 ? header('Location: dashboard') : header('Location: cliente');
+                //exit();
+            }
         } else {
             // Se as credenciais não correspondem, exibe uma mensagem de erro
             echo "Erro ao fazer login: Credenciais inválidas.";
@@ -122,6 +157,20 @@ class UsuarioDAO extends Database
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function buscarA()
+    {
+        $sql = $this->pdo->query("SELECT * FROM usuario WHERE estado = 1");
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function buscarD()
+    {
+        $sql = $this->pdo->query("SELECT * FROM usuario WHERE estado = 0");
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function getByEmail($email)
     {

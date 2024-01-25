@@ -15,6 +15,11 @@ class EmprestaController extends RenderViews
         $this->loadView('emprestimo', ['livros' => $this->emprestaDAO->fetchAll()]);
     }
 
+    public function emprestimoA()
+    {
+        $this->loadView('emprestimoA', ['emprestimos' => $this->emprestaDAO->fetchAll2()]);
+    }
+    
     public function emprestar()
     {
         $id_livro = $_GET['id'];

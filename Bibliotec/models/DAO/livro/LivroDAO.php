@@ -68,7 +68,7 @@ class LivroDAO extends Database
     {
         $stm = $this->pdo->prepare('DELETE FROM livro WHERE id = ?');
         $stm->execute([$id]);
-        header('Location: /bibliotec/biblioteca/listaLivro');
+        header('Location: /bibliotec/dashboard');
     }
 
     public function search($titulo)

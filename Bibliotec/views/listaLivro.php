@@ -71,17 +71,24 @@
                 </a>
 
             <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="emprestimoA">
+                    <i class="bi bi-list"></i><span>Listar Empréstimos</span>
+                </a>
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="listaUsuario">
                     <i class="bi bi-list"></i><span>Listar Usuários</span>
                 </a>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse"
+                    href="ativarUsuario">
                     <i class="bi bi-pen"></i><span>Ativar Usuários</span>
                 </a>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse"
+                    href="desativarUsuario">
                     <i class="bi bi-pen"></i><span>Desativar Usuários</span>
                 </a>
 
