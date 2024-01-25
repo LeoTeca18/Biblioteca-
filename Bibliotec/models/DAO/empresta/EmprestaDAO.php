@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 class EmprestaDAO extends Database
 {
     private $pdo;
@@ -8,16 +8,23 @@ class EmprestaDAO extends Database
     {
         $this->pdo = Database::getConnection();
     }
+
     public function create($id_livro)
     {
-        $id_usuario = $_SESSION['usuario_id'];
-        $stm = $this->pdo->prepare("INSERT INTO empresta(data_emprestimo, id_livro, id_usuario) VALUES (NOW(), :id_livro, :id_usuario)");
-        $stm->bindParam(':id_livro', $id_livro);
-        $stm->bindParam(':id_usuario', $id_usuario);
-        $stm->execute();
+        $emprestado = $this->fetchEmprestimoById($id_livro);
+        if (empty($emprestado)) {
+            $id_usuario = $_SESSION['usuario_id'];
+            $stm = $this->pdo->prepare("INSERT INTO empresta(data_emprestimo, id_livro, id_usuario) VALUES (NOW(), :id_livro, :id_usuario)");
+            $stm->bindParam(':id_livro', $id_livro);
+            $stm->bindParam(':id_usuario', $id_usuario);
+            $stm->execute();
 
-        header('Location: /bibliotec/cliente');
-        echo json_encode(["msg" => "Created"]);
+            header('Location: ./cliente');
+            echo json_encode(["msg" => "Created"]);
+
+        } else {
+            echo "<script>alert('Livro ja emprestado!');location.href='./cliente';</script>";
+        }
     }
 
     public function fetchAll()
@@ -40,7 +47,13 @@ class EmprestaDAO extends Database
 
     public function fetchById($id)
     {
-        $stm = $this->pdo->prepare("SELECT * FROM emprestimo WHERE id = ?");
+        $stm = $this->pdo->prepare("SELECT * FROM empresta WHERE id = ?");
+        $stm->execute([$id]);
+        return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+    public function fetchEmprestimoById($id)
+    {
+        $stm = $this->pdo->prepare("SELECT * FROM empresta WHERE id_livro = ?");
         $stm->execute([$id]);
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
@@ -68,4 +81,4 @@ class EmprestaDAO extends Database
         $table = 'empresta';
         return Database::count($table);
     }
-}    
+}
