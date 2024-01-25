@@ -1,5 +1,4 @@
 <?php
-session_start();
 class EmprestaDAO extends Database
 {
     private $pdo;
@@ -29,6 +28,7 @@ class EmprestaDAO extends Database
 
     public function fetchAll()
     {
+        session_start();
         $id_usuario = $_SESSION['usuario_id'];
         $stm = $this->pdo->query("SELECT * FROM `livro` INNER JOIN empresta WHERE empresta.id_usuario = $id_usuario");
         if ($stm->rowCount() > 0) {

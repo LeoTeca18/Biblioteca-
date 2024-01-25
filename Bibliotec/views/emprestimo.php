@@ -110,11 +110,6 @@
                     <td>
                         <?php echo $emprestimo['editora']; ?>
                     </td>
-                    <td>
-                        <?php $id = $emprestimo['id'] ?>
-                        <a href=<?= "listaLivro/$id" ?>><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        <a href=<?= "listaLivro/$id" ?>><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    </td>
                 </tr>
                 <?php endforeach ?>
             </tbody>
