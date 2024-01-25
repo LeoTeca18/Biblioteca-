@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Listagem de Usuarios</title>
+    <title>Desativos</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -82,14 +82,14 @@
                 </a>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="
-                    ativarUsuario">
-                    <i class="bi bi-pen"></i><span>Ativar Usuários</span>
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse"
+                    href="ativarUsuario">
+                    <i class="bi bi-pen"></i><span>Usuarios Ativos</span>
                 </a>
 
             <li class="nav-item">
-                <a class="nav-link" href="desativarUsuario">
-                    <i class="bi bi-pen"></i><span>Desativar Usuários</span>
+                <a class="nav-link" href=" desativarUsuario">
+                    <i class="bi bi-pen"></i><span>Usuarios Desativados</span>
                 </a>
 
             <li class="nav-item">
@@ -104,11 +104,11 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Listagem de Usuarios</h1>
+            <h1>Listagem de Desativados</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">Admin</li>
-                    <li class="breadcrumb-item active">Lista de Usuarios</li>
+                    <li class="breadcrumb-item active">Lista de Desativados</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -120,7 +120,7 @@
                 <div class="col-lg-8">
                     <div class="row">
 
-                        <h1>Lista de Usuarios</h1>
+                        <h1>Lista de Desativados</h1>
                         <table class="table">
                             <thead>
                                 <tr>

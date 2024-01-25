@@ -1,5 +1,5 @@
 <?php
-
+session_start(); 
 class EmprestaDAO extends Database
 {
     private $pdo;
@@ -16,7 +16,7 @@ class EmprestaDAO extends Database
         $stm->bindParam(':id_usuario', $id_usuario);
         $stm->execute();
 
-        header('Location: /biblioteca/listaLivro');
+        header('Location: /bibliotec/cliente');
         echo json_encode(["msg" => "Created"]);
     }
 
@@ -53,14 +53,14 @@ class EmprestaDAO extends Database
         $stm->bindParam(':data_devolucao', $empresta->data_devolucao);
         $stm->execute();
 
-        header('Location: /biblioteca/emprestar/' . $empresta->id);
+        header('Location: /bibliotec/emprestar/' . $empresta->id);
     }
 
     public function delete($id)
     {
         $stm = $this->pdo->prepare('DELETE FROM empresta WHERE id = ?');
         $stm->execute([$id]);
-        header('Location: listaLivro');
+        header('Location: /bibliotec/dashboard');
     }
 
     public static function getCount()

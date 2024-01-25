@@ -84,13 +84,13 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse"
                     href="ativarUsuario">
-                    <i class="bi bi-pen"></i><span>Ativar Usuários</span>
+                    <i class="bi bi-pen"></i><span>Usuarios Ativos</span>
                 </a>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse"
                     href="desativarUsuario">
-                    <i class="bi bi-pen"></i><span>Desativar Usuários</span>
+                    <i class="bi bi-pen"></i><span>Usuarios Desativados</span>
                 </a>
 
             <li class="nav-item">
@@ -120,9 +120,9 @@
                 <tr>
                     <th scope="col">Data de empréstimo</th>
                     <th scope="col">Data de devolução</th>
-                    <th scope="col">Id do livro</th>
                     <th scope="col">Id do usuário</th>
-
+                    <th scope="col">Id do livro</th>
+                    <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -132,11 +132,11 @@
                 <tr>
                     <td><?php echo $emprestimo['data_emprestimo']; ?></td>
                     <td><?php echo $emprestimo['data_devolucao']; ?></td>
-                    <td><?php echo $emprestimo['id_livro']; ?></td>
                     <td><?php echo $emprestimo['id_usuario']; ?></td>
+                    <td><?php echo $emprestimo['id_livro']; ?></td>
                     <td>
                         <?php $id = $emprestimo['id'] ?>
-                        <a href=<?= "emprestimoA/$id" ?>><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        <a href=<?= "apagar/$id" ?>><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
                 </tr>
                 <?php endforeach ?>

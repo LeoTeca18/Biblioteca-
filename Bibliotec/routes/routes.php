@@ -28,5 +28,5 @@ $routes = [
     '/emprestimo' => 'EmprestaController@emprestimo',
     '/emprestimoA' => 'EmprestaController@emprestimoA',
     '/emprestar' => 'EmprestaController@emprestar',
-
+    '/apagar/{id}' => 'EmprestaController@delete',
 ];

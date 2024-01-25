@@ -86,9 +86,10 @@
             </nav>
         </div><!-- End Page Title -->
 
+        <h1>Secção de Empréstimos</h1>
         <?php
-            foreach ($livros as $livro) :
-            ?>
+        foreach ($livros as $livro) :
+        ?>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">
@@ -104,35 +105,6 @@
             </div>
         </div>
         <?php endforeach ?>
-        =======
-        <h1>Secção de Empréstimos</h1>
-        <table class="table datatable">
-            <thead>
-                <tr>
-                    <th scope="col">Título</th>
-                    <th scope="col">Autor</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Acção</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    foreach ($livros as $livro) :
-                    ?>
-                <tr>
-                    <th scope="row"><?php echo $livro['titulo']; ?></th>
-                    <td><?php echo $livro['autor']; ?></td>
-                    <td><?php echo $livro['categoria']; ?></td>
-                    <td>
-                        <?php $id = $livro['id'] ?>
-                        <a href=<?= "listaLivro/$id" ?>><i class="fa fa-plus" aria-hidden="true"></i></a>
-                        <a href=<?= "listaLivro/$id" ?>><i class="fa fa-book" aria-hidden="true"></i></a>
-                    </td>
-                </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
-
 </body>
 
 </html>

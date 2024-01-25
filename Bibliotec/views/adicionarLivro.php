@@ -125,13 +125,13 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse"
                     href="ativarUsuario">
-                    <i class="bi bi-pen"></i><span>Ativar Usuarios</span>
+                    <i class="bi bi-pen"></i><span>Usuarios Ativos</span>
                 </a>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse"
                     href="desativarUsuario">
-                    <i class="bi bi-pen"></i><span>Desativar Usuarios</span>
+                    <i class="bi bi-pen"></i><span>Usuarios Desativados</span>
                 </a>
 
             <li class="nav-item">
