@@ -24,6 +24,9 @@ class EmprestaController extends RenderViews
     {
         $id_livro = $_GET['id'];
         $this->emprestaDAO->create($id_livro);
+        $livroDAO = new LivroDAO();
+        $idLivro = $id_livro;
+        $livroDAO->emprestarLivro($idLivro);
     }
 
     public function delete($id)

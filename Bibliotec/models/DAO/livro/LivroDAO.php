@@ -9,17 +9,16 @@ class LivroDAO extends Database
     {
         $this->pdo = Database::getConnection();
     }
-    public function create($titulo, $autor, $categoria, $descricao, $quantidade, $editora)
+    public function create($titulo, $autor, $categoria, $descricao, $editora)
     {
-        $stm = $this->pdo->prepare("INSERT INTO livro (titulo,editora,autor,quantidade,categoria,descricao) VALUES (:titulo, :editora, :autor, :quantidade, :categoria, :descricao)");
+        $stm = $this->pdo->prepare("INSERT INTO livro (titulo,editora,autor,categoria,descricao) VALUES (:titulo, :editora, :autor, :categoria, :descricao)");
         $stm->bindParam(':autor', $autor);
         $stm->bindParam(':editora', $editora);
         $stm->bindParam(':titulo', $titulo);
-        $stm->bindParam(':quantidade', $quantidade);
         $stm->bindParam(':categoria', $categoria);
         $stm->bindParam(':descricao', $descricao);
         $stm->execute();
-
+        
         header('Location: adicionarLivro');
         echo json_encode(["msg" => "Created"]);
     }
@@ -42,6 +41,13 @@ class LivroDAO extends Database
     }
 
 
+    public function emprestarLivro($idLivro)
+    {
+        $stmt = $this->pdo->prepare("UPDATE livro SET emprestado = 1 WHERE id = :id");
+        $stmt->bindParam(':id', $idLivro);
+        $stmt->execute();
+    }
+
     public function fetchById($id)
     {
         $stm = $this->pdo->prepare("SELECT * FROM livro WHERE id = ?");
@@ -51,12 +57,11 @@ class LivroDAO extends Database
 
     public function update(LivroDTO $livro)
     {
-        $stm = $this->pdo->prepare("UPDATE livro SET titulo = :titulo, descricao = :descricao, categoria = :categoria, editora = :editora, autor = :autor, quantidade = :quantidade, WHERE id = :id ");
+        $stm = $this->pdo->prepare("UPDATE livro SET titulo = :titulo, descricao = :descricao, categoria = :categoria, editora = :editora, autor = :autor, WHERE id = :id ");
         $stm->bindParam(':titulo', $livro->titulo);
         $stm->bindParam(':editora', $livro->editora);
         $stm->bindParam(':id', $livro->id);
         $stm->bindParam(':autor', $livro->autor);
-        $stm->bindParam(':quantidade', $livro->quantidade);
         $stm->bindParam(':categoria', $livro->categoria);
         $stm->bindParam(':descricao', $livro->descricao);
         $stm->execute();

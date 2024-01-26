@@ -129,7 +129,7 @@
                                     <th scope="col">Senha</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Adm</th>
-                                    <th scope="col">Acção</th>
+                                    <th scope="col">Eliminar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -144,8 +144,6 @@
                                     <td>
                                         <?php $id = $usuario['id'] ?>
                                         <a href=<?= "apagar/$id" ?>><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                        <a href=<?= "listaUsuario/$id" ?>><i class="fa fa-pencil"
-                                                aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                                 <?php endforeach ?>

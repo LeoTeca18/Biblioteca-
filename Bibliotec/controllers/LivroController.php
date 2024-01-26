@@ -30,9 +30,8 @@ class LivroController extends RenderViews
         $autor = $_POST['autor'];
         $categoria = $_POST['categoria'];
         $descricao = $_POST['descricao'];
-        $quantidade = $_POST['quantidade'];
         $editora = $_POST['editora'];
-        $this->livro->create($titulo, $autor, $categoria, $descricao, $quantidade, $editora);
+        $this->livro->create($titulo, $autor, $categoria, $descricao, $editora);
     }
 
     public function bookForm()

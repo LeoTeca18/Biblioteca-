@@ -9,7 +9,10 @@ class UsuarioController extends RenderViews
     }
     public function index()
     {
-        
+        if (!isset($SESSION["usuario"])) {
+            # code...
+            exit("Precisa iniciar sessão");
+        }
     }
 
     public function show($id)
@@ -48,10 +51,6 @@ class UsuarioController extends RenderViews
     {
         $idUser = $id[0];
         $this->usuario->desativarUsuario($idUser);
-    }
-
-    public function apagado(){
-        $this->loadView('listaUsuario', []);
     }
 
     public function ativado()

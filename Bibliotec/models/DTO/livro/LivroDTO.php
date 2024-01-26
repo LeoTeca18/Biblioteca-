@@ -5,17 +5,17 @@ class LivroDTO
     public $titulo;
     public $editora;
     public $autor;
-    public $quantidade;
     public $categoria;
     public $descricao;
-
-    public function __construct($titulo, $editora, $autor, $quantidade, $categoria, $descricao)
+    public $emprestado;
+    
+    public function __construct($titulo, $editora, $autor, $categoria, $descricao, $emprestado)
     {
         $this->titulo = $titulo;
         $this->editora = $editora;
         $this->autor = $autor;
-        $this->quantidade = $quantidade;
         $this->categoria = $categoria;
         $this->descricao = $descricao;
+        $this->emprestado = $emprestado;
     }
 }

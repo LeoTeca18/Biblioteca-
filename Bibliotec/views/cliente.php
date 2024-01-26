@@ -63,7 +63,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
                     href="emprestimo">
-                    <i class="bi bi-list"></i><span>Listar Emprestimos</span></i>
+                    <i class="bi bi-list"></i><span>Livros Emprestados</span></i>
                 </a>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="login">

@@ -40,6 +40,8 @@ class UsuarioDAO extends Database
         $stm->bindParam(':senha', $senha);
         $stm->bindParam(':estado', $estado);
         $stm->execute();
+
+        header('Location: login');
     }
 
     public function alterarEstadoUsuario($id, $estado)
@@ -60,13 +62,11 @@ class UsuarioDAO extends Database
     public function ativarUsuario($id)
     {
         $this->alterarEstadoUsuario($id, 1); // 1 representa o estado ativo
-        header('Location: /bibliotec/dashboard');
     }
 
     public function desativarUsuario($id)
     {
         $this->alterarEstadoUsuario($id, 0); // 0 representa o estado desativado
-        header('Location: /bibliotec/dashboard');
     }
 
     public function getUsuario()

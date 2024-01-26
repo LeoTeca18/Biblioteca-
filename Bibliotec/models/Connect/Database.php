@@ -4,7 +4,7 @@ class Database
 {
     public static function getConnection()
     {
-        $hostname = "localhost"; // TODO muda para localhost Teca, coloquei assim por causa do docker
+        $hostname = "localhost"; 
         $db_name = "biblioteca";
         $username = "root";
         $password = "";

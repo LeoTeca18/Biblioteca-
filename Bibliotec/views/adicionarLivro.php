@@ -158,10 +158,6 @@
                 <input type="text" id="autor" name="autor" required>
             </div>
             <div class="form-group">
-                <label for="editora">Quantidade</label>
-                <input type="number" id="quantidade" name="quantidade" required>
-            </div>
-            <div class="form-group">
                 <label for="editora">Categoria</label>
                 <input type="text" id="categoria" name="categoria" required>
             </div>

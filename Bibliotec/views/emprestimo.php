@@ -64,7 +64,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href=" emprestimo">
-                    <i class="bi bi-list"></i><span>Listar Emprestimos</span></i>
+                    <i class="bi bi-list"></i><span>Livros Emprestados</span></i>
                 </a>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="login">
@@ -87,7 +87,7 @@
             </nav>
         </div><!-- End Page Title -->
 
-        <h1>Secção de Empréstimos</h1>
+        <h1>Empréstimos</h1>
         <table class="table datatable">
             <thead>
                 <tr>
@@ -98,20 +98,24 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($livros as $emprestimo):
-                    ?>
+                foreach ($livros as $livro) :
+                    if ($livro['emprestado'] == 1) :
+                ?>
                 <tr>
-                    <th scope="row">
-                        <?php echo $emprestimo['titulo']; ?>
-                    </th>
-                    <td>
-                        <?php echo $emprestimo['autor']; ?>
+                    <td scope="row">
+                        <?php echo $livro['titulo']; ?>
                     </td>
                     <td>
-                        <?php echo $emprestimo['editora']; ?>
+                        <?php echo $livro['autor']; ?>
+                    </td>
+                    <td>
+                        <?php echo $livro['editora']; ?>
                     </td>
                 </tr>
-                <?php endforeach ?>
+                <?php
+                    endif;
+                endforeach;
+                ?>
             </tbody>
         </table>
 </body>
