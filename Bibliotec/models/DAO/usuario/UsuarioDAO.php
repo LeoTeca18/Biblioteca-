@@ -1,14 +1,35 @@
 <?php
+/**
+ * Classe UsuarioDAO - Data Access Object para Usuários
+ * 
+ * Gerencia todas as operações de acesso a dados relacionadas aos usuários,
+ * incluindo autenticação, cadastro, ativação/desativação e CRUD.
+ * 
+ * @package Models\DAO\Usuario
+ * @extends Database
+ * @author Sistema LivraTec
+ * @version 2.0
+ */
 session_start();
 
 class UsuarioDAO extends Database
 {
+    /** @var PDO Conexão com o banco de dados */
     private $pdo;
+    
+    /**
+     * Construtor - Inicializa a conexão com o banco de dados
+     */
     public function __construct()
     {
         $this->pdo = Database::getConnection();
     }
 
+    /**
+     * Obtém todos os usuários cadastrados
+     * 
+     * @return array Array de usuários ou array vazio
+     */
     public function fetch()
     {
         if($this->pdo == null){
@@ -24,6 +45,14 @@ class UsuarioDAO extends Database
         }
     }
 
+    /**
+     * Cadastra um novo usuário no sistema
+     * 
+     * @param string $nome Nome do usuário
+     * @param string $email Email do usuário
+     * @param string $senha Senha do usuário (deve ser hash)
+     * @return void
+     */
     public function cadastrar($nome, $email, $senha)
     {
         if ($this->pdo == null) {
@@ -150,11 +179,27 @@ class UsuarioDAO extends Database
         }
     }
 
+    /**
+     * Busca usuários com filtros
+     * 
+     * @return array Lista de usuários
+     */
     public function buscar()
     {
         $sql = $this->pdo->query("SELECT * FROM usuario");
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Conta usuários ativos no sistema
+     * 
+     * @return int Total de usuários ativos
+     */
+    public function countAtivos()
+    {
+        $stm = $this->pdo->query("SELECT COUNT(*) FROM usuario WHERE estado = 1");
+        return $stm->fetchColumn();
     }
 
     public function buscarA()

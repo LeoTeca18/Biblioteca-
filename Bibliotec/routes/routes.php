@@ -21,9 +21,11 @@ $routes = [
     '/adicionar' => 'LivroController@create',
     '/adicionarLivro' => 'LivroController@bookForm',
     '/listaLivro' => 'LivroController@buscar',
+    '/buscaAvancada' => 'LivroController@buscaAvancada',
     '/apagarLivro/{id}' => 'LivroController@delete',
     '/editarLivro/{id}' => 'LivroController@update',
     '/cliente' => 'LivroController@cliente',
+    '/relatorios' => 'UsuarioController@relatorios',
 
     '/emprestimo' => 'EmprestaController@emprestimo',
     '/emprestimoA' => 'EmprestaController@emprestimoA',

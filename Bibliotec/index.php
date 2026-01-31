@@ -1,8 +1,22 @@
 <?php
+/**
+ * Sistema de Gestão de Biblioteca - LivraTec
+ * 
+ * Arquivo de entrada principal do sistema.
+ * Responsável por inicializar o autoloader e executar o núcleo da aplicação.
+ * 
+ * @author Sistema LivraTec
+ * @version 2.0
+ * @since 2026-02-01
+ */
 
 require_once __DIR__ . '/core/core.php';
 require_once __DIR__ . '/routes/routes.php';
 
+/**
+ * Autoloader personalizado do sistema
+ * Carrega automaticamente as classes necessárias de diferentes diretórios
+ */
 spl_autoload_register(function ($file) {
     if (file_exists(__DIR__ . "/utils/$file.php")) {
         require_once __DIR__ . "/utils/$file.php";

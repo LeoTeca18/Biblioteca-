@@ -1,7 +1,22 @@
 <?php
-
+/**
+ * Classe Core - Núcleo do Sistema
+ * 
+ * Responsável por gerenciar o roteamento da aplicação,
+ * processar URLs e instanciar os controllers apropriados.
+ * 
+ * @package Core
+ * @author Sistema LivraTec
+ * @version 2.0
+ */
 class Core
 {
+    /**
+     * Executa o sistema de roteamento
+     * 
+     * @param array $routes Array de rotas da aplicação
+     * @return void
+     */
     public function run($routes)
     {
         $url = '/';

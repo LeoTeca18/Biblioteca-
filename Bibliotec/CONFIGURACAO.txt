@@ -1,0 +1,356 @@
+/**
+ * Configuração do Sistema LivraTec v2.0
+ * 
+ * Instruções para configurar e personalizar o sistema
+ */
+
+// ============================================
+// CONFIGURAÇÕES DO BANCO DE DADOS
+// ============================================
+
+Arquivo: models/Connect/Database.php
+
+// Configurações padrão de desenvolvimento
+$hostname = "localhost";
+$db_name = "biblioteca";
+$username = "root";
+$password = "";
+
+// Para produção, use variáveis de ambiente:
+$hostname = getenv('DB_HOST') ?: 'localhost';
+$db_name = getenv('DB_NAME') ?: 'biblioteca';
+$username = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASS') ?: '';
+
+
+// ============================================
+// SCRIPT SQL COMPLETO PARA CRIAÇÃO DO BANCO
+// ============================================
+
+CREATE DATABASE IF NOT EXISTS biblioteca 
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE biblioteca;
+
+-- Tabela de usuários
+CREATE TABLE IF NOT EXISTS usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    estado TINYINT DEFAULT 1 COMMENT '0=desativado, 1=ativo',
+    adm TINYINT DEFAULT 0 COMMENT '0=cliente, 1=administrador',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_email (email),
+    INDEX idx_estado (estado)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Tabela de usuários do sistema';
+
+-- Tabela de livros
+CREATE TABLE IF NOT EXISTS livro (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(200) NOT NULL,
+    autor VARCHAR(100) NOT NULL,
+    categoria VARCHAR(50),
+    editora VARCHAR(100),
+    descricao TEXT,
+    emprestado TINYINT DEFAULT 0 COMMENT '0=disponível, 1=emprestado',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_titulo (titulo),
+    INDEX idx_autor (autor),
+    INDEX idx_categoria (categoria),
+    INDEX idx_emprestado (emprestado)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Tabela de livros do acervo';
+
+-- Tabela de empréstimos
+CREATE TABLE IF NOT EXISTS empresta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_livro INT NOT NULL,
+    id_usuario INT NOT NULL,
+    data_emprestimo DATETIME NOT NULL,
+    data_devolucao DATETIME DEFAULT NULL,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_livro) REFERENCES livro(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE CASCADE,
+    INDEX idx_emprestimo (data_emprestimo),
+    INDEX idx_devolucao (data_devolucao),
+    INDEX idx_livro_usuario (id_livro, id_usuario)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Tabela de controle de empréstimos';
+
+-- Inserir usuário administrador padrão
+INSERT INTO usuario (nome, email, senha, estado, adm) 
+VALUES ('Administrador', 'admin@livratec.com', 'admin123', 1, 1);
+
+-- Inserir dados de exemplo (opcional)
+INSERT INTO livro (titulo, autor, categoria, editora, descricao, emprestado) VALUES
+('Dom Casmurro', 'Machado de Assis', 'Romance', 'Editora Ática', 'Clássico da literatura brasileira', 0),
+('1984', 'George Orwell', 'Ficção', 'Companhia das Letras', 'Distopia futurista', 0),
+('Clean Code', 'Robert C. Martin', 'Técnico', 'Alta Books', 'Boas práticas de programação', 0),
+('Sapiens', 'Yuval Noah Harari', 'História', 'L&PM', 'História da humanidade', 0),
+('O Senhor dos Anéis', 'J.R.R. Tolkien', 'Fantasia', 'Martins Fontes', 'Épico de fantasia', 0);
+
+
+// ============================================
+// CONFIGURAÇÃO DO APACHE (.htaccess)
+// ============================================
+
+Crie um arquivo .htaccess na raiz do projeto:
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /Bibliotec/
+    
+    # Redirecionar para index.php se não for arquivo ou diretório
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+    
+    # Proteger arquivos sensíveis
+    <FilesMatch "\.(ini|log|sh)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    
+    # Cache de arquivos estáticos
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresByType image/jpg "access plus 1 year"
+        ExpiresByType image/jpeg "access plus 1 year"
+        ExpiresByType image/gif "access plus 1 year"
+        ExpiresByType image/png "access plus 1 year"
+        ExpiresByType text/css "access plus 1 month"
+        ExpiresByType application/javascript "access plus 1 month"
+    </IfModule>
+</IfModule>
+
+
+// ============================================
+// CONFIGURAÇÃO DO PHP (php.ini)
+// ============================================
+
+Configurações recomendadas:
+
+upload_max_filesize = 20M
+post_max_size = 20M
+memory_limit = 256M
+max_execution_time = 300
+session.gc_maxlifetime = 3600
+date.timezone = America/Sao_Paulo
+
+
+// ============================================
+// VARIÁVEIS DE AMBIENTE (.env)
+// ============================================
+
+Crie um arquivo .env na raiz (não commitar):
+
+# Banco de Dados
+DB_HOST=localhost
+DB_NAME=biblioteca
+DB_USER=root
+DB_PASS=
+
+# Aplicação
+APP_ENV=development
+APP_DEBUG=true
+APP_URL=http://localhost/Bibliotec
+
+# Sessão
+SESSION_LIFETIME=120
+SESSION_DRIVER=file
+
+
+// ============================================
+// CONFIGURAÇÃO DE SEGURANÇA
+// ============================================
+
+1. CSRF Protection (Adicionar em futuras versões):
+   - Implementar tokens CSRF em formulários
+   - Validar tokens em cada requisição POST
+
+2. Hash de Senhas:
+   Substitua no UsuarioDAO:
+   
+   // Ao cadastrar
+   $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+   
+   // Ao fazer login
+   if (password_verify($senha, $usuario['senha'])) {
+       // Login bem-sucedido
+   }
+
+3. Proteção de Sessão:
+   session_start([
+       'cookie_httponly' => true,
+       'cookie_secure' => true, // Se usar HTTPS
+       'use_strict_mode' => true
+   ]);
+
+4. Headers de Segurança:
+   header("X-Frame-Options: DENY");
+   header("X-XSS-Protection: 1; mode=block");
+   header("X-Content-Type-Options: nosniff");
+
+
+// ============================================
+// PERSONALIZAÇÃO DE TEMA
+// ============================================
+
+Arquivo: views/support/css/custom-improvements.css
+
+Alterar cores principais:
+
+:root {
+  --primary-color: #4154f1;      /* Azul principal */
+  --primary-dark: #2c3cdd;       /* Azul escuro */
+  --primary-light: #717ff5;      /* Azul claro */
+  --secondary-color: #012970;    /* Azul muito escuro */
+  
+  --success-color: #28a745;      /* Verde */
+  --warning-color: #ffc107;      /* Amarelo */
+  --danger-color: #dc3545;       /* Vermelho */
+  --info-color: #17a2b8;         /* Azul info */
+}
+
+
+// ============================================
+// CONFIGURAÇÃO DE EMAIL (Futuro)
+// ============================================
+
+Para adicionar notificações por email, use PHPMailer:
+
+composer require phpmailer/phpmailer
+
+Configuração:
+$mail = new PHPMailer(true);
+$mail->isSMTP();
+$mail->Host = 'smtp.gmail.com';
+$mail->SMTPAuth = true;
+$mail->Username = 'seu-email@gmail.com';
+$mail->Password = 'sua-senha';
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port = 587;
+
+
+// ============================================
+// BACKUP DO BANCO DE DADOS
+// ============================================
+
+Script para backup automático (Linux/Mac):
+
+#!/bin/bash
+BACKUP_DIR="/var/backups/biblioteca"
+DATE=$(date +"%Y%m%d_%H%M%S")
+DB_NAME="biblioteca"
+DB_USER="root"
+DB_PASS=""
+
+mkdir -p $BACKUP_DIR
+mysqldump -u $DB_USER -p$DB_PASS $DB_NAME > $BACKUP_DIR/backup_$DATE.sql
+gzip $BACKUP_DIR/backup_$DATE.sql
+
+# Manter apenas últimos 7 dias
+find $BACKUP_DIR -name "*.gz" -mtime +7 -delete
+
+
+Windows (PowerShell):
+$date = Get-Date -Format "yyyyMMdd_HHmmss"
+$backupDir = "C:\Backups\biblioteca"
+$fileName = "backup_$date.sql"
+New-Item -ItemType Directory -Force -Path $backupDir
+& "C:\xampp\mysql\bin\mysqldump.exe" -u root biblioteca > "$backupDir\$fileName"
+
+
+// ============================================
+// TESTES E VALIDAÇÃO
+// ============================================
+
+1. Verificar conexão com banco:
+   - Acesse: /Bibliotec/
+   - Se não conectar, verifique Database.php
+
+2. Testar login:
+   - Email: admin@livratec.com
+   - Senha: admin123
+
+3. Testar funcionalidades:
+   - Adicionar livro
+   - Fazer busca
+   - Registrar empréstimo
+   - Ver relatórios
+
+4. Verificar permissões:
+   - Teste com usuário admin e cliente
+   - Verifique restrições de acesso
+
+
+// ============================================
+// OTIMIZAÇÕES DE PERFORMANCE
+// ============================================
+
+1. Habilitar Cache de Consultas MySQL:
+   query_cache_type = 1
+   query_cache_size = 16M
+
+2. Usar OPcache no PHP:
+   opcache.enable=1
+   opcache.memory_consumption=128
+   opcache.max_accelerated_files=4000
+
+3. Minificar CSS/JS em produção:
+   - Use ferramentas como Gulp ou Webpack
+   - Combine múltiplos arquivos
+
+4. Usar CDN para bibliotecas:
+   - Bootstrap
+   - Font Awesome
+   - jQuery (se necessário)
+
+
+// ============================================
+// DEPLOY EM PRODUÇÃO
+// ============================================
+
+Checklist para deploy:
+
+[ ] Alterar credenciais do banco de dados
+[ ] Remover/comentar displays de erro
+[ ] Habilitar HTTPS
+[ ] Configurar headers de segurança
+[ ] Hash de todas as senhas
+[ ] Testar todas as funcionalidades
+[ ] Configurar backups automáticos
+[ ] Monitorar logs de erro
+[ ] Otimizar performance
+[ ] Configurar firewall
+
+
+// ============================================
+// MONITORAMENTO E LOGS
+// ============================================
+
+Criar sistema de logs:
+
+function logActivity($message, $level = 'INFO') {
+    $logFile = __DIR__ . '/logs/app.log';
+    $timestamp = date('Y-m-d H:i:s');
+    $logMessage = "[$timestamp] [$level] $message\n";
+    file_put_contents($logFile, $logMessage, FILE_APPEND);
+}
+
+Uso:
+logActivity('Usuário fez login: ' . $email);
+logActivity('Livro emprestado: ID ' . $livro_id);
+
+
+// ============================================
+// CONTATOS E SUPORTE
+// ============================================
+
+Documentação: https://github.com/seu-usuario/livratec
+Issues: https://github.com/seu-usuario/livratec/issues
+Email: suporte@livratec.com
+
+Para dúvidas ou problemas, abra uma issue no GitHub.

@@ -1,14 +1,35 @@
 <?php
-
+/**
+ * Classe LivroController - Controlador de Livros
+ * 
+ * Gerencia todas as operações relacionadas aos livros do sistema,
+ * incluindo cadastro, edição, exclusão e listagem.
+ * 
+ * @package Controllers
+ * @extends RenderViews
+ * @author Sistema LivraTec
+ * @version 2.0
+ */
 class LivroController extends RenderViews
 {
-
+    /**
+     * @var LivroDAO Instância do objeto de acesso a dados de livros
+     */
     private $livro;
+    
+    /**
+     * Construtor - Inicializa o DAO de livros
+     */
     public function __construct()
     {
         $this->livro = new LivroDAO;
     }
 
+    /**
+     * Método index principal
+     * 
+     * @return void
+     */
     public function index()
     {
     }
@@ -24,13 +45,28 @@ class LivroController extends RenderViews
         $this->loadView('A_listaUsuario', ['usuario' => $this->livro->fetchById($idUser)]);
     }
 
+    /**
+     * Cria um novo livro no sistema
+     * 
+     * Valida e sanitiza os dados recebidos do formulário antes de inserir no banco.
+     * 
+     * @return void
+     */
     public function create()
     {
-        $titulo = $_POST['titulo'];
-        $autor = $_POST['autor'];
-        $categoria = $_POST['categoria'];
-        $descricao = $_POST['descricao'];
-        $editora = $_POST['editora'];
+        // Validação de dados
+        if (!isset($_POST['titulo']) || !isset($_POST['autor'])) {
+            header('Location: adicionarLivro?erro=campos_obrigatorios');
+            return;
+        }
+        
+        // Sanitização dos dados
+        $titulo = filter_var($_POST['titulo'], FILTER_SANITIZE_STRING);
+        $autor = filter_var($_POST['autor'], FILTER_SANITIZE_STRING);
+        $categoria = filter_var($_POST['categoria'], FILTER_SANITIZE_STRING);
+        $descricao = filter_var($_POST['descricao'], FILTER_SANITIZE_STRING);
+        $editora = filter_var($_POST['editora'], FILTER_SANITIZE_STRING);
+        
         $this->livro->create($titulo, $autor, $categoria, $descricao, $editora);
     }
 
@@ -82,6 +118,36 @@ class LivroController extends RenderViews
         $this->livro->delete($idUser);
     }
 
+    /**
+     * Exibe o formulário de busca avançada
+     * 
+     * @return void
+     */
+    public function buscaAvancada()
+    {
+        $livros = [];
+        
+        // Se houver filtros na requisição
+        if (!empty($_GET)) {
+            $filtros = [
+                'titulo' => $_GET['titulo'] ?? '',
+                'autor' => $_GET['autor'] ?? '',
+                'categoria' => $_GET['categoria'] ?? '',
+                'editora' => $_GET['editora'] ?? '',
+                'status' => $_GET['status'] ?? ''
+            ];
+            
+            $livros = $this->livro->advancedSearch($filtros);
+        }
+        
+        $this->loadView('buscaAvancada', ['livros' => $livros]);
+    }
+
+    /**
+     * Exibe a tela do cliente com livros disponíveis
+     * 
+     * @return void
+     */
     public function cliente()
     {
         $this->loadView('cliente', ['livros' => $this->livro->buscar()]);
